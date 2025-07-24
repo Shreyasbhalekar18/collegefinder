@@ -65,13 +65,13 @@ Edit
 
 ```markdown
 ### 🔹 Home Page
-![Home Page](screenshots/home.png)
+![Home Page](screenshots/interface.jpeg)
 
 ### 🔹 College Suggestions
-![Suggestions](screenshots/results.png)
+![Suggestions](screenshots/profile.jpeg)
 
 ### 🔹 Filter Page
-![Filters](screenshots/filters.png)
+![Filters](screenshots/review.jpeg)
 ⚙️ Setup Instructions
 Clone the repository:
 

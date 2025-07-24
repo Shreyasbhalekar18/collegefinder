@@ -72,6 +72,7 @@ Edit
 
 ### 🔹 Filter Page
 ![Filters](screenshots/review.jpeg)
+
 ⚙️ Setup Instructions
 Clone the repository:
 

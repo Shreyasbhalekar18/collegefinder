@@ -66,13 +66,13 @@ Edit
 ```markdown
  
 ### 🔹 Home Page
-![Home Page](screenshots/home.jpeg)
+![Home Page](screenshots/interface.jpeg)
 
-### 🔹 College Suggestions
-![Suggestions](screenshots/results.jpeg)
+### 🔹 Profile
+![Suggestions](screenshots/profile.jpeg)
 
-### 🔹 Filter Page
-![Filters](screenshots/filters.jpeg)
+### 🔹 Review and contact Page
+![Filters](screenshots/review.jpeg)
 
 ⚙️ Setup Instructions
 Clone the repository:

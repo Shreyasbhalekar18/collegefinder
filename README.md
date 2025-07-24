@@ -60,10 +60,6 @@ Edit
 ---
 
 ## 📸 Screenshots
-
-> *(Add your actual screenshots here by uploading them to GitHub and using the markdown below)*
-
-```markdown
  
 ### 🔹 Home Page
 ![Home Page](screenshots/interface.jpeg)

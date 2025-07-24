@@ -1,1 +1,1 @@
-# CollegeFinder-Website
+# College Finder Project 

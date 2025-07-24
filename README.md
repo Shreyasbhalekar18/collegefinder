@@ -113,10 +113,5 @@ GitHub: @Shreyasbhalekar18
 📄 License
 This project is licensed under the MIT License.
 
-yaml
-Copy
-Edit
 
----
 
-Let me know if you want this in dark theme preview or if you're using it inside a GitHub Pages site— I can adjust it

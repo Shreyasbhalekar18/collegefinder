@@ -1,0 +1,10 @@
+CREATE TABLE wishlist (
+    wish_id INT AUTO_INCREMENT PRIMARY KEY,         -- Primary key with auto-increment
+    username VARCHAR(50) COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'none',   -- Username column from the 'users' table
+    college_name VARCHAR(255) COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'no',-- College name column from the 'colleges' table
+   college_name2 text collate latin1_swedish_ci NOT NULL DEFAULT 'no',-- College name column from the 'college_info' table
+    CONSTRAINT fk_username FOREIGN KEY (username) REFERENCES users(username),  -- Foreign key from the 'users' table
+    CONSTRAINT fk_college_name_colleges FOREIGN KEY (college_name) REFERENCES colleges(college_name), -- Foreign key from the 'colleges' table
+ CONSTRAINT fk_college_name_info FOREIGN KEY (college_name) REFERENCES college_info(college_name) -- Foreign key from the 'college_info' table
+
+);

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Psychology College Finder</title>
+    <link rel="stylesheet" href="bootstrap.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Scheherazade+New&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Goudy+Bookletter+1911&family=Roboto+Slab:wght@800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0d0d0d;
+            color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+        background-color: #1c1c1c; /* Darker background for navbar */
+    }
+
+    .navbar-brand, .nav-link {
+        color: #e0e0e0; /* Light text color in navbar */
+    }
+
+    .nav-link:hover {
+        color: #f0a500; /* Highlight color on hover */
+    }
+
+        header {
+            background-color: #1a1a1a;
+            color: #f5f5f5;
+            padding: 1.5em 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        main {
+            padding: 2em;
+            max-width: 800px;
+            margin: 2em auto;
+            background-color: #121212;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+        }
+
+        section {
+            margin-bottom: 2em;
+        }
+
+        h2 {
+            color: #f5f5f5;
+            font-size: 1.8em;
+            margin-bottom: 1em;
+            font-weight: 500;
+        }
+
+        form {
+            background-color: #1e1e1e;
+            padding: 2em;
+            border-radius: 10px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5em;
+            color: #b3b3b3;
+            font-size: 1.1em;
+            font-weight: 400;
+        }
+
+        select, input, button {
+            width: 100%;
+            padding: 0.75em;
+            margin-bottom: 1.5em;
+            border: 1px solid #333;
+            border-radius: 5px;
+            background-color: #2a2a2a;
+            color: #f5f5f5;
+            font-size: 1em;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #result {
+            padding: 2em;
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        #result h2 {
+            font-size: 1.6em;
+            font-weight: 500;
+            margin-bottom: 1em;
+        }
+
+        #result p {
+            font-size: 1.1em;
+            color: #dcdcdc;
+        }
+
+        .college-list {
+            margin-top: 1.5em;
+        }
+
+        .college-item {
+            padding: 1em;
+            background-color: #2a2a2a;
+            border-radius: 5px;
+            margin-bottom: 1em;
+            color: #f5f5f5;
+        }
+
+        .college-item h3 {
+            margin: 0;
+            font-size: 1.2em;
+        }
+
+        .college-item p {
+            margin: 0.5em 0;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+          <img class="logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSadbBO57YIUp9s54yBrhwIRNNaLtbtH-A2Ug&usqp=CAU" alt="UniversityFindr Logo">
+          <a class="navbar-brand">College Finder</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="index2.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="About.html">About Us</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="contact.html">Contact Us</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="review.html">Reviews</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="profile.php">Profile</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+   
+    <main>
+        <section>
+            <h2>Input Your Details</h2>
+            <form id="college-form">
+                <label for="marks">Marks:</label>
+                <input type="number" id="marks" name="marks" min="0" required>
+                
+                <label for="state">State:</label>
+                <select id="state" name="state" required>
+                    <option value="">Select State</option>
+                    <!-- States will be populated here -->
+                </select>
+                
+                <label for="city">City:</label>
+                <select id="city" name="city" required>
+                    <option value="">Select City</option>
+                    <!-- Cities will be populated here -->
+                </select>
+                
+                <label for="course">Psychology Course:</label>
+                <select id="course" name="course" required>
+                    <option value="">Select Course</option>
+                    <option value="Intro to Psychology">Intro to Psychology</option>
+                    <option value="Cognitive Psychology">Cognitive Psychology</option>
+                    <option value="Abnormal Psychology">Abnormal Psychology</option>
+                    <option value="Developmental Psychology">Developmental Psychology</option>
+                    <option value="Social Psychology">Social Psychology</option>
+                </select>
+                
+                <label for="college-type">College Type:</label>
+                <select id="college-type" name="college-type" required>
+                    <option value="private">Private</option>
+                    <option value="public">Public</option>
+                </select>
+                
+                <button type="submit">Find Colleges</button>
+            </form>
+        </section>
+        <section id="result">
+            <h2>Your Selection</h2>
+            <p id="selection-summary"></p>
+            <div class="college-list" id="college-list">
+                <!-- List of colleges will be displayed here -->
+            </div>
+        </section>
+    </main>
+    <script>
+        const statesCities = {
+            'Andhra Pradesh': ['Visakhapatnam', 'Vijayawada', 'Guntur', 'Nellore', 'Tirupati', 'Kakinada', 'Rajahmundry', 'Anantapur', 'Chittoor', 'Srikakulam'],
+            'Arunachal Pradesh': ['Itanagar', 'Tawang', 'Bomdila', 'Ziro', 'Tezu', 'Pasighat', 'Roing', 'Namsai', 'Anini', 'Kimin'],
+            'Assam': ['Guwahati', 'Dibrugarh', 'Jorhat', 'Silchar', 'Tezpur', 'Nagaon', 'Hailakandi', 'Karimganj', 'Bongaigaon', 'Golaghat'],
+            'Bihar': ['Patna', 'Gaya', 'Bhagalpur', 'Muzaffarpur', 'Darbhanga', 'Purnia', 'Sasaram', 'Katihar', 'Arrah', 'Samastipur'],
+            'Chhattisgarh': ['Raipur', 'Bilaspur', 'Korba', 'Durg', 'Jagdalpur', 'Rajnandgaon', 'Ambikapur', 'Raigarh', 'Kawardha', 'Kanker'],
+            'Goa': ['Panaji', 'Margao', 'Vasco da Gama', 'Mapusa', 'Ponda', 'Cortalim', 'Quepem', 'Sanguem', 'Canacona', 'Bicholim'],
+            'Gujarat': ['Ahmedabad', 'Surat', 'Vadodara', 'Rajkot', 'Gandhinagar', 'Bhavnagar', 'Jamnagar', 'Junagadh', 'Anand', 'Nadiad'],
+            'Haryana': ['Gurugram', 'Faridabad', 'Ambala', 'Hisar', 'Karnal', 'Panipat', 'Rohtak', 'Sonipat', 'Yamunanagar', 'Sirsa'],
+            'Himachal Pradesh': ['Shimla', 'Manali', 'Dharamshala', 'Kullu', 'Solan', 'Mandi', 'Una', 'Hamirpur', 'Bilaspur', 'Chamba'],
+            'Jharkhand': ['Ranchi', 'Jamshedpur', 'Dhanbad', 'Bokaro', 'Hazaribagh', 'Giridih', 'Deoghar', 'Dumka', 'Chaibasa', 'Ramgarh'],
+            'Karnataka': ['Bengaluru', 'Mysuru', 'Hubballi', 'Dharwad', 'Mangalore', 'Belagavi', 'Tumkur', 'Shimoga', 'Gulbarga', 'Bidar'],
+            'Kerala': ['Thiruvananthapuram', 'Kochi', 'Kozhikode', 'Kottayam', 'Alappuzha', 'Kannur', 'Palakkad', 'Wayanad', 'Malappuram', 'Idukki'],
+            'Madhya Pradesh': ['Bhopal', 'Indore', 'Gwalior', 'Jabalpur', 'Ujjain', 'Sagar', 'Rewa', 'Satna', 'Burhanpur', 'Khandwa'],
+            'Maharashtra': ['Mumbai', 'Pune', 'Nagpur', 'Aurangabad', 'Nashik', 'Thane', 'Kolhapur', 'Solapur', 'Amravati', 'Jalgaon'],
+            'Manipur': ['Imphal', 'Thoubal', 'Kakching', 'Bishnupur', 'Churachandpur', 'Senapati', 'Jiribam', 'Moreh', 'Ukhrul', 'Tamenglong'],
+            'Meghalaya': ['Shillong', 'Tura', 'Jowai', 'Bholaganj', 'Nongstoin', 'Mairang', 'Williamnagar', 'Nongpoh', 'Resubelpara', 'Khliehriat'],
+            'Mizoram': ['Aizawl', 'Lunglei', 'Siaha', 'Champhai', 'Mamit', 'Kolasib', 'Serchhip', 'Hnahthial', 'Lawngtlai', 'Saitual'],
+            'Nagaland': ['Kohima', 'Dimapur', 'Wokha', 'Mon', 'Tuensang', 'Phek', 'Zunheboto', 'Kiphire', 'Longleng', 'Peren'],
+            'Odisha': ['Bhubaneswar', 'Cuttack', 'Rourkela', 'Berhampur', 'Sambalpur', 'Balasore', 'Koraput', 'Kendrapara', 'Baripada', 'Angul'],
+            'Punjab': ['Chandigarh', 'Ludhiana', 'Amritsar', 'Jalandhar', 'Patiala', 'Mohali', 'Bathinda', 'Fatehgarh Sahib', 'Moga', 'Hoshiarpur'],
+            'Rajasthan': ['Jaipur', 'Udaipur', 'Jodhpur', 'Kota', 'Bikaner', 'Ajmer', 'Alwar', 'Sikar', 'Pali', 'Jhunjhunu'],
+            'Sikkim': ['Gangtok', 'Namchi', 'Gyalshing', 'Mangan', 'Rangpo', 'Jorethang', 'Pelling', 'Rangpo', 'Yuksom', 'Rongli'],
+            'Tamil Nadu': ['Chennai', 'Coimbatore', 'Madurai', 'Tiruchirappalli', 'Salem', 'Erode', 'Tirunelveli', 'Vellore', 'Kanchipuram', 'Nagercoil'],
+            'Telangana': ['Hyderabad', 'Warangal', 'Nizamabad', 'Khammam', 'Karimnagar', 'Mahabubnagar', 'Adilabad', 'Medak', 'Ranga Reddy', 'Nalgonda'],
+            'Tripura': ['Agartala', 'Udaipur', 'Kailasahar', 'Sabroom', 'Dharmanagar', 'Belonia', 'Ambassa', 'Khowai', 'Jirania', 'Teliamura'],
+            'Uttar Pradesh': ['Lucknow', 'Kanpur', 'Agra', 'Varanasi', 'Meerut', 'Allahabad', 'Ghaziabad', 'Bareilly', 'Jhansi', 'Aligarh'],
+            'Uttarakhand': ['Dehradun', 'Nainital', 'Haridwar', 'Rudrapur', 'Roorkee', 'Haldwani', 'Kashipur', 'Pauri', 'Tehri', 'Udham Singh Nagar'],
+            'West Bengal': ['Kolkata', 'Howrah', 'Siliguri', 'Durgapur', 'Asansol', 'Burdwan', 'Malda', 'Kharagpur', 'Haldia', 'Jalpaiguri']
+        };
+
+        // Populate states in the dropdown
+        const stateSelect = document.getElementById('state');
+        for (const state in statesCities) {
+            const option = document.createElement('option');
+            option.value = state;
+            option.textContent = state;
+            stateSelect.appendChild(option);
+        }
+
+        // Update city dropdown based on selected state
+        stateSelect.addEventListener('change', function () {
+            const selectedState = this.value;
+            const citySelect = document.getElementById('city');
+            citySelect.innerHTML = '<option value="">Select City</option>'; // Reset city dropdown
+            if (selectedState) {
+                const cities = statesCities[selectedState];
+                for (const city of cities) {
+                    const option = document.createElement('option');
+                    option.value = city;
+                    option.textContent = city;
+                    citySelect.appendChild(option);
+                }
+            }
+        });
+
+        // Handle form submission
+        document.getElementById('college-form').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent default form submission
+            
+            const marks = document.getElementById('marks').value;
+            const state = document.getElementById('state').value;
+            const city = document.getElementById('city').value;
+            const course = document.getElementById('course').value;
+            const collegeType = document.getElementById('college-type').value;
+
+            // Update selection summary
+            document.getElementById('selection-summary').innerHTML = `
+                <strong>Marks:</strong> ${marks} <br>
+                <strong>State:</strong> ${state} <br>
+                <strong>City:</strong> ${city} <br>
+                <strong>Course:</strong> ${course} <br>
+                <strong>College Type:</strong> ${collegeType}
+            `;
+
+            // Mock college data (you should replace this with real data)
+            const colleges = [
+                { name: 'College A', rating: 4.5, fees: '₹50,000', courses: 'Intro to Psychology, Cognitive Psychology' },
+                { name: 'College B', rating: 4.0, fees: '₹60,000', courses: 'Abnormal Psychology, Social Psychology' },
+                { name: 'College C', rating: 3.5, fees: '₹55,000', courses: 'Developmental Psychology, Cognitive Psychology' }
+            ];
+
+            // Display college list
+            const collegeList = document.getElementById('college-list');
+            collegeList.innerHTML = ''; // Clear previous results
+            colleges.forEach(college => {
+                const div = document.createElement('div');
+                div.className = 'college-item';
+                div.innerHTML = `
+                    <h3>${college.name}</h3>
+                    <p><strong>Rating:</strong> ${college.rating}</p>
+                    <p><strong>Fees:</strong> ${college.fees}</p>
+                    <p><strong>Courses:</strong> ${college.courses}</p>
+                `;
+                collegeList.appendChild(div);
+            });
+        });
+    </script>
+</body>
+</html>

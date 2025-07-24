@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ask Ai - Career Guidance Chatbot</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f5;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        h1, h2 {
+            color: #4a4a4a;
+        }
+
+        h1 {
+            font-size: 36px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #d4d4d4;
+            padding-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 26px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .chatbot-container {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .chatbot-container:hover {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        iframe {
+            border-radius: 12px;
+            width: 100%;
+            height: 500px;
+            border: 2px solid #dcdcdc;
+        }
+
+        .chatbot-button {
+            display: inline-block;
+            padding: 14px 28px;
+            background-color: #0056b3;
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s;
+            text-decoration: none;
+        }
+
+        .chatbot-button:hover {
+            background-color: #004090;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 86, 179, 0.3);
+        }
+
+        .chatbot-button:active {
+            background-color: #003372;
+            box-shadow: 0 4px 12px rgba(0, 86, 179, 0.5);
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 30px;
+            }
+
+            h2 {
+                font-size: 22px;
+            }
+
+            .chatbot-container {
+                padding: 20px;
+            }
+
+            .chatbot-button {
+                font-size: 16px;
+                padding: 12px 24px;
+            }
+        }
+
+        /* Subtle floating animation */
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        /* Add floating effect to chatbot container 
+        .chatbot-container {
+            animation: float 4s ease-in-out infinite;
+        }*/
+
+    </style>
+</head>
+<body>
+
+<h1>Career Guidance Chatbot</h1>
+
+<div class="chatbot-container">
+    <h2>Chat with Our AI Assistant</h2>
+    <iframe 
+        src="https://cdn.botpress.cloud/webchat/v2/shareable.html?botId=9e296bc6-7229-4bf8-a5ec-b3f3c1747a7a" 
+        title="Chatbot"></iframe>
+</div>
+
+<div class="button-container">
+    <h2>Or Chat in a New Tab</h2>
+    <button id="openChatbot" class="chatbot-button">Open Chat</button>
+</div>
+
+<script>
+document.getElementById('openChatbot').onclick = function() {
+    window.open('https://cdn.botpress.cloud/webchat/v2/shareable.html?botId=9e296bc6-7229-4bf8-a5ec-b3f3c1747a7a', '_blank');
+};
+</script>
+
+</body>
+</html>

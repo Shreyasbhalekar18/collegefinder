@@ -1,0 +1,1 @@
+<button class="add-to-wishlist-btn" onclick="addToWishlist('<?php echo htmlspecialchars($row['college_name']); ?>')">Add to Wishlist</button>

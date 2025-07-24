@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Sign Up - University Finder</title>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: #f4f4f4;
+            background-color: #121212;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px; /* Adjust spacing between navbar and form */
+        }
+        .logo img {
+            width: 60px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .container {
+            max-width: 400px;
+            padding: 2rem;
+            background-color: #1e1e1e;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        h1 {
+            color: #e0e0e0;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #b0b0b0;
+        }
+        .textbox {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #333;
+            border-radius: 4px;
+            background-color: #2e2e2e;
+            color: #f4f4f4;
+        }
+        .button {
+            width: 100%;
+            background-color: #359211;
+            color: #f4f4f4;
+            border: none;
+            padding: 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .button:hover {
+            background-color: #26c606;
+        }
+        .toggle-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+        .toggle-button {
+            background-color: #333;
+            color: #f4f4f4;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 0 0.5rem;
+        }
+        .toggle-button.active {
+            background-color: #0c3ad0;
+        }
+        .form-container {
+            display: none;
+        }
+        .form-container.active {
+            display: block;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">
+            <img class="logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSadbBO57YIUp9s54yBrhwIRNNaLtbtH-A2Ug&usqp=CAU" alt="University Finder Logo">
+        </div>
+        <div style="font-size: 30px;">
+            College Finder
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="toggle-container">
+            <button id="loginToggle" class="toggle-button active">Login</button>
+            <button id="signupToggle" class="toggle-button">Sign Up</button>
+        </div>
+        
+        <!-- Login Form -->
+        <div id="loginForm" class="form-container active">
+            <h1>Login</h1>
+            <form action="process.php" method="POST">
+                <label for="loginUsername">Username:</label>
+                <input type="text" id="loginUsername" name="loginUsername" class="textbox" required>
+                
+                <label for="loginPassword">Password:</label>
+                <input type="password" id="loginPassword" name="loginPassword" class="textbox" required>
+                <input style="cursor:pointer;" type="checkbox" id="loginPasswordToggle" onclick="togglePasswordVisibility('loginPassword')">
+                <label style="cursor:pointer;" for="loginPasswordToggle">Show Password</label><br>
+                <button type="submit" name="login" class="button">Login</button>
+            </form>
+            
+        </div>
+        
+        <!-- Sign Up Form -->
+        <div id="signupForm" class="form-container">
+            <h1>Sign Up</h1>
+            <form action="process.php" method="POST" name="signupForm" onsubmit="return validateForm()">
+                <label for="signupUsername">Username:</label>
+                <input type="text" id="signupUsername" name="signupUsername" class="textbox" required>
+                
+                <label for="signupEmail">Email:</label>
+                <input type="email" id="signupEmail" name="signupEmail" class="textbox" required>
+                
+                <label for="signupPassword">Password:</label>
+                <input type="password" id="signupPassword" name="signupPassword" class="textbox" required>
+                <input style="cursor:pointer;" type="checkbox" id="signupPasswordToggle" onclick="togglePasswordVisibility('signupPassword')">
+                <label style="cursor:pointer;" for="signupPasswordToggle">Show Password</label><br>
+                <label for="phoneno">Phone Number:</label>
+                <input type="tel" id="phonenumber" name="phonenumber" class="textbox" required>
+                <label for="address">Address</label>
+                <input type="text" id="address" name="address" class="textbox" required>
+
+                <button type="submit" name="signup" class="button">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const loginToggle = document.getElementById('loginToggle');
+        const signupToggle = document.getElementById('signupToggle');
+        const loginForm = document.getElementById('loginForm');
+        const signupForm = document.getElementById('signupForm');
+
+        loginToggle.addEventListener('click', () => {
+            loginToggle.classList.add('active');
+            signupToggle.classList.remove('active');
+            loginForm.classList.add('active');
+            signupForm.classList.remove('active');
+        });
+
+        signupToggle.addEventListener('click', () => {
+            signupToggle.classList.add('active');
+            loginToggle.classList.remove('active');
+            signupForm.classList.add('active');
+            loginForm.classList.remove('active');
+        });
+        function validateForm() {
+            var phonenumber = document.forms["signupForm"]["phonenumber"].value;
+
+            // Check if the phone number is exactly 10 digits
+            if (phonenumber.length !== 10 || isNaN(phonenumber)) {
+                alert("Phone number must be integer and should be exactly 10 digits.");
+                return false; // Prevent form submission
+            }
+
+            return true; // Allow form submission
+        }
+        function togglePasswordVisibility(id) {
+            var passwordField = document.getElementById(id);
+            var toggleCheckbox = document.getElementById(id + "Toggle");
+
+            if (toggleCheckbox.checked) {
+                passwordField.type = "text";
+            } else {
+                passwordField.type = "password";
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,265 @@
+<?php
+// profile.php
+
+session_start();
+
+// Database connection
+$servername = "localhost:3307"; // Adjust as needed
+$username = "root";        // Adjust as needed
+$password = "";            // Adjust as needed
+$dbname = "university_finder"; // Adjust as needed
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+if (!isset($_SESSION['userId'])) {
+    header("Location: login.html"); // Redirect to login if user is not logged in
+    exit();
+}
+
+$userId = $_SESSION['userId'];
+
+// Fetch user details
+$sql = "SELECT username FROM users WHERE id = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $userId);
+$stmt->execute();
+$stmt->bind_result($username);
+$stmt->fetch();
+$stmt->close();
+
+// Determine profile picture path
+$profilePictureDir = "uploads/profile_pictures/";
+$profilePicturePath = $profilePictureDir . "profile_" . $userId . ".jpg";
+
+if (!file_exists($profilePicturePath)) {
+    $profilePicturePath = "uploads/default_profile.png"; // Path to a default profile picture
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['new_profile_picture'])) {
+    $targetFile = $profilePictureDir . "profile_" . $userId . ".jpg";
+    $uploadOk = 1;
+    $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
+
+    // Check if image file is a actual image or fake image
+    $check = getimagesize($_FILES["new_profile_picture"]["tmp_name"]);
+    if ($check !== false) {
+        $uploadOk = 1;
+    } else {
+        echo "File is not an image.";
+        $uploadOk = 0;
+    }
+
+    // Check file size
+    if ($_FILES["new_profile_picture"]["size"] > 500000) {
+        echo "Sorry, your file is too large.";
+        $uploadOk = 0;
+    }
+
+    // Allow certain file formats
+    if ($imageFileType != "jpg" && $imageFileType != "jpeg") {
+        echo "Sorry, only JPG and JPEG files are allowed.";
+        $uploadOk = 0;
+    }
+
+    // Check if $uploadOk is set to 0 by an error
+    if ($uploadOk == 0) {
+        echo "Sorry, your file was not uploaded.";
+    } else {
+        if (move_uploaded_file($_FILES["new_profile_picture"]["tmp_name"], $targetFile)) {
+            // Refresh the page to show the new profile picture
+            header("Location: profile.php");
+            exit();
+        } else {
+            echo "Sorry, there was an error uploading your file.";
+        }
+    }
+}
+// Directory for storing certificates
+$certificateDir = "uploads/certificates/";
+
+// Handling certificate upload
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['new_certificate'])) {
+    $targetDir = $certificateDir;
+    $fileName = $_FILES['new_certificate']['name']; // Original file name
+    $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+    $newFileName = "certificate_" . $userId . "_" . time() . "." . $fileExtension;
+    $targetFile = $targetDir . $newFileName;
+
+    // Check if file is a PDF
+    if ($fileExtension != "pdf") {
+        echo "Sorry, only PDF files are allowed.";
+    } else {
+        if (move_uploaded_file($_FILES["new_certificate"]["tmp_name"], $targetFile)) {
+            
+            // Redirect to profile page to display the new certificate
+            header("Location: profile.php");
+            exit();
+        } else {
+            echo "Sorry, there was an error uploading your file.";
+        }
+    }
+}
+
+// Fetch certificates for the user
+$certificates = glob($certificateDir . "certificate_" . $userId . "_*.pdf");
+// Map for original names of the files
+$certificateNames = [];
+foreach ($certificates as $certificate) {
+    $originalName = basename($certificate);
+    $certificateNames[$certificate] = $originalName;
+}
+
+$conn->close();
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: #f4f4f4;
+            background-color: #121212;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            background-color: #1e1e1e;
+            padding: 1rem;
+        }
+        .navbar a {
+            color: #f4f4f4;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+        }
+        .navbar a:hover {
+            background-color: #333;
+        }
+        .navbar .logo {
+            display: flex;
+            align-items: center;
+            color: #f4f4f4;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        .navbar .logo img {
+            height: 40px;
+            margin-right: 0.5rem;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 4rem auto;
+            padding: 4rem;
+            background-color: #1e1e1e;
+            border-radius: 8px;
+        }
+        .profile-header {
+            display: flex;
+            align-items: center;
+            justify-content: left;
+            margin-bottom: 2rem;
+        }
+        .profile-pic {
+            border-radius: 50%;
+            border: 4px solid rgb(20, 23, 199);
+            height: 200px;
+            width: 200px;
+            object-fit: cover;
+            margin-right: 1rem;
+        }
+        .profile-info h2 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+        .change-profile-btn,.upload-certificate-btn {
+            background-color: #333;
+            color: #f4f4f4;
+            border: none;
+            padding: 0.5rem 1rem;
+            margin-top: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .change-profile-btn:hover,.upload-certificate-btn:hover {
+            background-color: #555;
+        }
+        .hidden {
+            display: none;
+        }
+        .certificates-list {
+            margin-top: 2rem;
+        }
+        .certificates-list a {
+            color: #f4f4f4;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            padding: 0.5rem;
+            background-color: #333;
+            border-radius: 4px;
+        }
+        .certificates-list a:hover {
+            background-color: #555;
+        }
+        .certificates-list .certificate-name {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSadbBO57YIUp9s54yBrhwIRNNaLtbtH-A2Ug&usqp=CAU" alt="Logo" style="width: 60px; height: 50px; border-radius: 50%; object-fit: cover;">
+        <a class="navbar-brand" style="font-size: 30px; margin-left: -16px;">College Finder</a>
+        </div>
+        <div>
+        <a href="index2.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+            <a href="review.html">Review</a>
+            <a href="profile.php">Profile</a>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <div class="profile-header">
+            <img src="<?php echo htmlspecialchars($profilePicturePath); ?>" alt="Profile Picture" class="profile-pic">
+            <div class="profile-info">
+                <h2 style="position:relative; top:-15px;"><?php echo htmlspecialchars($username); ?></h2>
+                <form method="post" enctype="multipart/form-data">
+                    <label class="change-profile-btn" for="new_profile_picture">Change Profile</label>
+                    <input type="file" name="new_profile_picture" id="new_profile_picture" class="hidden" accept="image/*" onchange="this.form.submit()">
+                </form>
+                <a style="font-size:bold; color:red; position:relative; top:15px;" href="logout.php"><h3>Logout</h3></a>
+            </div>
+        </div>
+        <div class="certificates-list">
+            <h1>Uploaded Certificates:</h1>
+            <?php if (count($certificates) > 0): ?>
+                <?php foreach ($certificateNames as $filePath => $originalName): ?>
+                    <a href="<?php echo htmlspecialchars($filePath); ?>" target="_blank">
+                        <?php echo htmlspecialchars($originalName); ?>
+                    </a>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p>No certificates uploaded yet.</p>
+            <?php endif; ?>
+        </div>
+        <form method="post" enctype="multipart/form-data">
+            <button class="upload-certificate-btn" type="button" onclick="document.getElementById('new_certificate').click()">Upload New Certificate</button>
+            <input type="file" name="new_certificate" id="new_certificate" class="hidden" accept="application/pdf" onchange="this.form.submit()">
+        </form>
+    </div>
+</body>
+</html>
